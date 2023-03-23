@@ -1,4 +1,4 @@
-from selene import have, be
+from selene import have, be, command
 from selene.support.shared import browser
 from demoqa_tests.model.controls import checkbox, datepicker, radiobutton, dropdown
 from demoqa_tests.utils import image_path
@@ -6,6 +6,13 @@ from demoqa_tests.utils import image_path
 
 def open_practice_form_page():
     browser.open('/automation-practice-form')
+
+
+def remove_ads():
+    browser.all('[id^=google_ads][id$=container__]').with_(timeout=3).wait_until(
+        have.size_greater_than_or_equal(3)
+    )
+    browser.all('[id^=google_ads][id$=container__]').perform(command.js.remove)
 
 
 def set_first_name(first_name):
